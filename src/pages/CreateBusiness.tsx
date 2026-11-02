@@ -1,13 +1,11 @@
 import { useState } from 'react';
-import { useAuth } from '@/lib/auth';
 import { createBusiness, fetchBusinesses } from '@/lib/api';
-import { SECTORS, STAGES, APP_NAME } from '@/lib/constants';
+import { SECTORS, STAGES } from '@/lib/constants';
 import { Logo } from '@/components/Logo';
 import { Loader2, Building2 } from 'lucide-react';
 import type { Business } from '@/lib/types';
 
 export function CreateBusiness({ onCreated }: { onCreated: (business: Business) => void }) {
-  const { user } = useAuth();
   const [name, setName] = useState('');
   const [sector, setSector] = useState('');
   const [description, setDescription] = useState('');

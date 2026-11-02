@@ -10,7 +10,7 @@ import {
 } from '@/lib/api';
 import type { Business, BusinessProgress, CountrySettings, DailyEntry, Task, UnlockGateResult } from '@/lib/types';
 import { GATE_NAMES, TASK_OWNER_LABELS, TASK_STATUS_LABELS, APP_NAME } from '@/lib/constants';
-import { getGateName, getNextGate, getProgressForGate, computeProgressPct } from '@/lib/gates';
+import { getGateName, getNextGate, getProgressForGate } from '@/lib/gates';
 import { formatCurrency, formatNumber, todayISO } from '@/lib/format';
 import { LoadingSpinner, ErrorState } from '@/components/States';
 import { TrendingUp, Flame, CheckCircle2, Circle, Lock, Unlock, Zap, AlertTriangle } from 'lucide-react';

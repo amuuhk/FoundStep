@@ -6,12 +6,12 @@ import {
   fetchGateUnlocks,
   attemptGateUnlock,
 } from '@/lib/api';
-import type { Business, BusinessProgress, CountrySettings, GateUnlock, UnlockGateResult, MissingRequirement } from '@/lib/types';
-import { GATE_NAMES, GATE_ORDER } from '@/lib/constants';
-import { getGateName, getNextGate, getProgressForGate, formatMissingMessage, getFieldLabel } from '@/lib/gates';
+import type { Business, BusinessProgress, CountrySettings, GateUnlock, UnlockGateResult } from '@/lib/types';
+import { GATE_ORDER } from '@/lib/constants';
+import { getGateName, getNextGate, getProgressForGate, formatMissingMessage } from '@/lib/gates';
 import { formatCurrency, formatNumber } from '@/lib/format';
 import { LoadingSpinner, ErrorState } from '@/components/States';
-import { Lock, Unlock, CheckCircle2, ChevronRight } from 'lucide-react';
+import { Lock, Unlock, CheckCircle2 } from 'lucide-react';
 
 export function GateScreen({ businessId }: { businessId: string }) {
   const [business, setBusiness] = useState<Business | null>(null);
@@ -66,7 +66,6 @@ export function GateScreen({ businessId }: { businessId: string }) {
   if (error || !business) return <ErrorState message="Could not load gate information." onRetry={loadData} />;
 
   const nextGate = getNextGate(business.current_gate);
-  const unlockedGates = new Set(unlocks.map((u) => u.gate));
 
   return (
     <div className="space-y-5 animate-fade-in">
