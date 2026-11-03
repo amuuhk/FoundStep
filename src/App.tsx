@@ -33,7 +33,15 @@ function AuthGate() {
   const [view, setView] = useState<AuthView>('landing');
   const go = () => window.location.reload();
 
-  if (view === 'signup') return <SignUp onSuccess={go} onViewPrivacy={() => setView('privacy')} />;
+  if (view === 'signup') {
+    return (
+      <SignUp
+        onSuccess={go}
+        onSignIn={() => setView('login')}
+        onViewPrivacy={() => setView('privacy')}
+      />
+    );
+  }
   if (view === 'privacy') return <PrivacyNotice onBack={() => setView('signup')} />;
   if (view === 'login') return <Login onSwitchToSignUp={() => setView('signup')} onSuccess={go} />;
   return <LandingPage onGetStarted={() => setView('signup')} onSignIn={() => setView('login')} />;

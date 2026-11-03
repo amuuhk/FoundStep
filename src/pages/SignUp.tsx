@@ -8,7 +8,15 @@ import { Loader2, Eye, EyeOff } from 'lucide-react';
 
 type SignUpStep = 'details' | 'agreement';
 
-export function SignUp({ onSuccess, onViewPrivacy }: { onSuccess: () => void; onViewPrivacy: () => void }) {
+export function SignUp({
+  onSuccess,
+  onSignIn,
+  onViewPrivacy,
+}: {
+  onSuccess: () => void;
+  onSignIn: () => void;
+  onViewPrivacy: () => void;
+}) {
   const { signUp } = useAuth();
   const [step, setStep] = useState<SignUpStep>('details');
   const [fullName, setFullName] = useState('');
@@ -203,7 +211,7 @@ export function SignUp({ onSuccess, onViewPrivacy }: { onSuccess: () => void; on
 
         <p className="mt-6 text-center text-sm text-neutral-500">
           Already have an account?{' '}
-          <button onClick={onSuccess} className="font-semibold text-primary-600 hover:text-primary-700">
+          <button onClick={onSignIn} className="font-semibold text-primary-600 hover:text-primary-700">
             Sign in
           </button>
         </p>

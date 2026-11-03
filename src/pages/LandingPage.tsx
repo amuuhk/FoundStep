@@ -4,6 +4,9 @@ import { Logo } from '@/components/Logo';
 import { SystemDiagram } from '@/components/SystemDiagram';
 import { APP_NAME } from '@/lib/constants';
 
+const LANDING_PHOTO_URL =
+  'https://images.pexels.com/photos/7414216/pexels-photo-7414216.jpeg?auto=compress&cs=tinysrgb&h=650&w=940';
+
 interface LandingPageProps {
   onGetStarted: () => void;
   onSignIn: () => void;
@@ -66,11 +69,19 @@ export function LandingPage({ onGetStarted, onSignIn }: LandingPageProps) {
           </div>
 
           <div
-            className={`rounded-3xl bg-primary-900 p-6 shadow-xl shadow-primary-900/20 transition-all duration-700 delay-150 ease-out sm:p-10 ${
+            className={`relative overflow-hidden rounded-3xl bg-primary-900 shadow-xl shadow-primary-900/20 transition-all duration-700 delay-150 ease-out ${
               ready ? 'scale-100 opacity-100' : 'scale-95 opacity-0'
             }`}
           >
-            <SystemDiagram />
+            <img
+              src={LANDING_PHOTO_URL}
+              alt="Founders planning a growing business together"
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-br from-primary-900/90 via-primary-900/80 to-secondary-700/60" />
+            <div className="relative p-6 sm:p-10">
+              <SystemDiagram />
+            </div>
           </div>
         </div>
       </main>

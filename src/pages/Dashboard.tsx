@@ -13,6 +13,7 @@ import { GATE_NAMES, TASK_OWNER_LABELS, TASK_STATUS_LABELS, APP_NAME } from '@/l
 import { getGateName, getNextGate, getProgressForGate } from '@/lib/gates';
 import { formatCurrency, formatNumber, todayISO } from '@/lib/format';
 import { LoadingSpinner, ErrorState } from '@/components/States';
+import { StartupPipeline } from '@/components/StartupPipeline';
 import { TrendingUp, Flame, CheckCircle2, Circle, Lock, Unlock, Zap, AlertTriangle } from 'lucide-react';
 
 interface DashboardProps {
@@ -102,6 +103,8 @@ export function Dashboard({ businessId, onNavigate }: DashboardProps) {
         </h1>
         <p className="mt-0.5 text-sm text-neutral-500">{business.name}</p>
       </div>
+
+      <StartupPipeline business={business} />
 
       {/* Alerts */}
       {showDiscipline && (
