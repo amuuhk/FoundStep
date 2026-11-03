@@ -22,7 +22,7 @@
 
 @layer components {
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-primary-600 px-5 py-3 text-sm font-semibold text-white shadow-sm transition-all hover:bg-primary-700 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50;
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-accent-500 px-5 py-3 text-sm font-semibold text-primary-900 shadow-sm transition-all hover:bg-accent-600 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50;
   }
 
   .btn-secondary {
@@ -50,6 +50,16 @@
   }
 
   .progress-bar-fill {
-    @apply h-full rounded-full bg-primary-500 transition-all duration-500 ease-out;
+    @apply h-full rounded-full bg-secondary-500 transition-all duration-500 ease-out;
   }
+}
+
+@keyframes flowDash {
+  to {
+    stroke-dashoffset: -48;
+  }
+}
+
+.flow-line {
+  animation: flowDash 1.6s linear infinite;
 }

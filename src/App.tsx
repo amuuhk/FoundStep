@@ -13,6 +13,7 @@ import { GateScreen } from '@/pages/GateScreen';
 import { CoachChat } from '@/pages/CoachChat';
 import { LandingPage } from '@/pages/LandingPage';
 import { PrivacyNotice } from '@/pages/PrivacyNotice';
+import { PricingCard } from '@/components/PricingCard';
 import { useAuth as useAuthHook } from '@/lib/auth';
 
 type AuthView = 'landing' | 'login' | 'signup' | 'privacy';
@@ -93,6 +94,7 @@ function SettingsView() {
           {profile?.phone && <p>Phone: <span className="font-medium text-neutral-900">{profile.phone}</span></p>}
         </div>
       </div>
+      <PricingCard />
       <button onClick={() => signOut()} className="btn-secondary w-full">
         Sign out
       </button>
