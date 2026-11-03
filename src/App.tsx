@@ -14,6 +14,8 @@ import { CoachChat } from '@/pages/CoachChat';
 import { LandingPage } from '@/pages/LandingPage';
 import { PrivacyNotice } from '@/pages/PrivacyNotice';
 import { PricingCard } from '@/components/PricingCard';
+import { EquityAgreementStep } from '@/components/EquityAgreement';
+import { acceptEquityAgreement } from '@/lib/api';
 import { useAuth as useAuthHook } from '@/lib/auth';
 
 type AuthView = 'landing' | 'login' | 'signup' | 'privacy';
@@ -37,8 +39,44 @@ function AuthGate() {
   return <LandingPage onGetStarted={() => setView('signup')} onSignIn={() => setView('login')} />;
 }
 
+function AgreementGate({ onAccepted }: { onAccepted: () => Promise<void> }) {
+  const { signOut } = useAuthHook();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleAccept = async () => {
+    setError(null);
+    setLoading(true);
+    const saved = await acceptEquityAgreement();
+    if (!saved) {
+      setError('We could not save your agreement. Please try again.');
+      setLoading(false);
+      return;
+    }
+    await onAccepted();
+    setLoading(false);
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-primary-50 to-neutral-50">
+      <div className="mx-auto flex min-h-screen max-w-md flex-col px-5 py-8">
+        <div className="mb-8 flex justify-center">
+          <Logo size="lg" />
+        </div>
+        <EquityAgreementStep onAccept={handleAccept} loading={loading} error={error} submitLabel="Accept and continue" />
+        <button
+          onClick={() => signOut()}
+          className="mt-6 text-center text-sm font-semibold text-neutral-500 hover:text-neutral-700"
+        >
+          Sign out instead
+        </button>
+      </div>
+    </div>
+  );
+}
+
 function AuthenticatedApp() {
-  const { user } = useAuthHook();
+  const { user, profile, refreshProfile } = useAuthHook();
   const [business, setBusiness] = useState<Business | null | undefined>(undefined);
   const [page, setPage] = useState<Page>('dashboard');
 
@@ -51,6 +89,10 @@ function AuthenticatedApp() {
   useEffect(() => {
     loadBusiness();
   }, [loadBusiness]);
+
+  if (profile && !profile.equity_agreement_accepted_at) {
+    return <AgreementGate onAccepted={refreshProfile} />;
+  }
 
   if (business === undefined) return <FullPageLoader message="Loading your business..." />;
 

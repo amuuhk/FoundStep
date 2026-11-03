@@ -1,4 +1,4 @@
-export type Role = 'founder' | 'mentor' | 'investor' | 'admin';
+export type Role = 'founder' | 'mentor' | 'admin';
 
 export type BusinessStage = 'idea' | 'selling' | 'earning';
 
@@ -25,6 +25,7 @@ export interface Profile {
   country: string;
   state: string | null;
   language: string;
+  equity_agreement_accepted_at: string | null;
   created_at: string;
 }
 

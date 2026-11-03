@@ -249,6 +249,16 @@ export async function updateProfile(updates: {
   return true;
 }
 
+export async function acceptEquityAgreement(): Promise<boolean> {
+  const { error } = await supabase.rpc('accept_equity_agreement');
+
+  if (error) {
+    console.error('acceptEquityAgreement error:', error.message);
+    return false;
+  }
+  return true;
+}
+
 export async function fetchCoachMessages(businessId: string, limit = 200): Promise<CoachMessage[]> {
   const { data, error } = await supabase
     .from('coach_messages')

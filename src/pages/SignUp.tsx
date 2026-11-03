@@ -1,11 +1,16 @@
 import { useState } from 'react';
 import { useAuth } from '@/lib/auth';
+import { acceptEquityAgreement } from '@/lib/api';
 import { Logo } from '@/components/Logo';
+import { EquityAgreementStep } from '@/components/EquityAgreement';
 import { NIGERIA_STATES, APP_NAME } from '@/lib/constants';
 import { Loader2, Eye, EyeOff } from 'lucide-react';
 
+type SignUpStep = 'details' | 'agreement';
+
 export function SignUp({ onSuccess, onViewPrivacy }: { onSuccess: () => void; onViewPrivacy: () => void }) {
   const { signUp } = useAuth();
+  const [step, setStep] = useState<SignUpStep>('details');
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
@@ -13,11 +18,10 @@ export function SignUp({ onSuccess, onViewPrivacy }: { onSuccess: () => void; on
   const [state, setState] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [agreed, setAgreed] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleContinue = (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
 
@@ -41,11 +45,12 @@ export function SignUp({ onSuccess, onViewPrivacy }: { onSuccess: () => void; on
       setError('Password must be at least 6 characters.');
       return;
     }
-    if (!agreed) {
-      setError('Please agree to the terms and privacy notice to continue.');
-      return;
-    }
 
+    setStep('agreement');
+  };
+
+  const handleCreateAccount = async () => {
+    setError(null);
     setLoading(true);
     const { error: signUpError } = await signUp(
       email.trim(),
@@ -59,11 +64,33 @@ export function SignUp({ onSuccess, onViewPrivacy }: { onSuccess: () => void; on
     if (signUpError) {
       setError(signUpError);
       setLoading(false);
+      setStep('details');
       return;
     }
 
+    await acceptEquityAgreement();
     onSuccess();
   };
+
+  if (step === 'agreement') {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-primary-50 to-neutral-50">
+        <div className="mx-auto flex min-h-screen max-w-md flex-col px-5 py-8">
+          <div className="mb-8 flex justify-center">
+            <Logo size="lg" />
+          </div>
+          <EquityAgreementStep
+            onAccept={handleCreateAccount}
+            onBack={() => setStep('details')}
+            onViewPrivacy={onViewPrivacy}
+            loading={loading}
+            error={error}
+            submitLabel="Accept and create account"
+          />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-primary-50 to-neutral-50">
@@ -79,7 +106,7 @@ export function SignUp({ onSuccess, onViewPrivacy }: { onSuccess: () => void; on
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleContinue} className="space-y-4">
           <div>
             <label className="label-text" htmlFor="fullName">Full name</label>
             <input
@@ -162,19 +189,6 @@ export function SignUp({ onSuccess, onViewPrivacy }: { onSuccess: () => void; on
             </div>
           </div>
 
-          <label className="flex items-start gap-3 pt-1">
-            <input
-              type="checkbox"
-              checked={agreed}
-              onChange={(e) => setAgreed(e.target.checked)}
-              className="mt-0.5 h-4 w-4 rounded border-neutral-300 text-primary-600 focus:ring-primary-500"
-            />
-            <span className="text-xs leading-relaxed text-neutral-600">
-              I understand all numbers I enter are self-reported and I agree to the{' '}
-              <button type="button" onClick={onViewPrivacy} className="font-semibold text-primary-600 hover:text-primary-700">privacy notice</button>.
-            </span>
-          </label>
-
           {error && (
             <div className="rounded-xl border border-error-200 bg-error-50 px-4 py-3 text-sm text-error-700">
               {error}
@@ -183,7 +197,7 @@ export function SignUp({ onSuccess, onViewPrivacy }: { onSuccess: () => void; on
 
           <button type="submit" disabled={loading} className="btn-primary w-full">
             {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
-            {loading ? 'Creating account...' : 'Create account'}
+            Continue to equity agreement
           </button>
         </form>
 
