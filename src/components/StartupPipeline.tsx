@@ -23,8 +23,8 @@ export function StartupPipeline({ business }: { business: Business }) {
   return (
     <div className="space-y-5">
       <div className="card">
-        <h2 className="text-sm font-semibold text-primary-900">Startup pipeline</h2>
-        <p className="mt-0.5 text-xs text-neutral-500">Where {business.name} stands today.</p>
+        <h2 className="text-sm font-semibold text-primary">Startup pipeline</h2>
+        <p className="mt-0.5 text-xs text-muted">Where {business.name} stands today.</p>
         <ol className="mt-5 grid grid-cols-4 gap-2">
           {PIPELINE_STAGES.map((stage, i) => {
             const done = i < activeStage;
@@ -34,15 +34,15 @@ export function StartupPipeline({ business }: { business: Business }) {
                 <div
                   className={`flex h-9 w-9 items-center justify-center rounded-full border-2 transition-colors ${
                     done
-                      ? 'border-secondary-500 bg-secondary-500 text-white'
+                      ? 'border-growth bg-growth text-on-solid'
                       : current
-                        ? 'border-primary-700 bg-primary-700 text-white'
-                        : 'border-neutral-200 bg-white text-neutral-300'
+                        ? 'border-primary bg-primary text-on-solid'
+                        : 'border-border bg-surface text-border'
                   }`}
                 >
                   {done ? <Check className="h-4 w-4" /> : <Circle className="h-3.5 w-3.5" />}
                 </div>
-                <p className={`mt-2 text-xs font-semibold ${current ? 'text-primary-900' : 'text-neutral-500'}`}>
+                <p className={`mt-2 text-xs font-semibold ${current ? 'text-primary' : 'text-muted'}`}>
                   {stage.label}
                 </p>
               </li>
@@ -52,8 +52,8 @@ export function StartupPipeline({ business }: { business: Business }) {
       </div>
 
       <div className="card">
-        <h2 className="text-sm font-semibold text-primary-900">Production steps</h2>
-        <p className="mt-0.5 text-xs text-neutral-500">Each step is a gate you unlock by hitting its targets.</p>
+        <h2 className="text-sm font-semibold text-primary">Production steps</h2>
+        <p className="mt-0.5 text-xs text-muted">Each step is a gate you unlock by hitting its targets.</p>
         <ul className="mt-4 space-y-2">
           {GATE_ORDER.map((gate) => {
             const done = gate < business.current_gate;
@@ -62,25 +62,25 @@ export function StartupPipeline({ business }: { business: Business }) {
               <li
                 key={gate}
                 className={`flex items-center gap-3 rounded-xl border p-3 ${
-                  current ? 'border-primary-200 bg-primary-50' : 'border-neutral-200 bg-white'
+                  current ? 'border-primary/30 bg-primary/10' : 'border-border bg-surface'
                 }`}
               >
                 <div
                   className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-xs font-bold ${
                     done
-                      ? 'bg-secondary-100 text-secondary-700'
+                      ? 'bg-growth/15 text-growth'
                       : current
-                        ? 'bg-primary-700 text-white'
-                        : 'bg-neutral-100 text-neutral-400'
+                        ? 'bg-primary text-on-solid'
+                        : 'bg-border text-muted'
                   }`}
                 >
                   {done ? <Check className="h-4 w-4" /> : gate === business.current_gate ? gate : <Lock className="h-3.5 w-3.5" />}
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className={`text-sm font-semibold ${current ? 'text-primary-900' : 'text-neutral-700'}`}>
+                  <p className={`text-sm font-semibold ${current ? 'text-primary' : 'text-text'}`}>
                     Gate {gate}: {GATE_NAMES[gate]}
                   </p>
-                  <p className="text-xs text-neutral-500">
+                  <p className="text-xs text-muted">
                     {done ? 'Completed' : current ? 'In progress' : 'Locked'}
                   </p>
                 </div>

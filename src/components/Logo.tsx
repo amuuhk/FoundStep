@@ -10,12 +10,15 @@ export function Logo({ size = 'md', markOnly = false }: { size?: 'sm' | 'md' | '
 
   return (
     <div className="flex items-center gap-2.5">
-      <img
-        src="/images/Screenshot_(271).png"
-        alt={`${APP_NAME} logo`}
-        className={`${d.box} rounded-xl object-cover shadow-sm`}
-      />
-      {!markOnly && <span className={`${d.text} font-bold tracking-tight text-primary-900`}>{APP_NAME}</span>}
+      <picture>
+        <source srcSet="/images/FoundStep_logo_on_dark.svg" media="(prefers-color-scheme: dark)" />
+        <img
+          src="/images/FoundStep_logo_on_light.svg"
+          alt={`${APP_NAME} logo`}
+          className={`${d.box} shrink-0`}
+        />
+      </picture>
+      {!markOnly && <span className={`${d.text} font-bold tracking-tight text-primary`}>{APP_NAME}</span>}
     </div>
   );
 }

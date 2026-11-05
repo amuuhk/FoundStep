@@ -59,18 +59,18 @@ export function CreateBusiness({ onCreated }: { onCreated: (business: Business) 
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-primary-50 to-neutral-50">
+    <div className="min-h-screen bg-gradient-to-b from-primary/10 to-bg">
       <div className="mx-auto flex min-h-screen max-w-md flex-col px-5 py-8">
         <div className="mb-6 flex justify-center">
           <Logo size="md" />
         </div>
 
         <div className="mb-6 text-center">
-          <div className="mb-3 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-primary-100">
-            <Building2 className="h-6 w-6 text-primary-600" />
+          <div className="mb-3 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/15">
+            <Building2 className="h-6 w-6 text-primary" />
           </div>
-          <h1 className="text-2xl font-bold text-neutral-900">Tell us about your business</h1>
-          <p className="mt-1.5 text-sm text-neutral-500">
+          <h1 className="text-2xl font-bold text-text">Tell us about your business</h1>
+          <p className="mt-1.5 text-sm text-muted">
             This sets up your dashboard. You can change details later.
           </p>
         </div>
@@ -108,7 +108,7 @@ export function CreateBusiness({ onCreated }: { onCreated: (business: Business) 
               placeholder="e.g. We make and sell affordable traditional clothing for women in Kano."
               maxLength={200}
             />
-            <p className="mt-1 text-xs text-neutral-400">{description.length}/200</p>
+            <p className="mt-1 text-xs text-muted">{description.length}/200</p>
           </div>
 
           <div>
@@ -119,8 +119,8 @@ export function CreateBusiness({ onCreated }: { onCreated: (business: Business) 
                   key={s.value}
                   className={`flex cursor-pointer items-center gap-3 rounded-xl border p-3 transition-colors ${
                     stage === s.value
-                      ? 'border-primary-500 bg-primary-50'
-                      : 'border-neutral-200 bg-white hover:border-neutral-300'
+                      ? 'border-primary bg-primary/10'
+                      : 'border-border bg-surface hover:border-border/90'
                   }`}
                 >
                   <input
@@ -129,9 +129,9 @@ export function CreateBusiness({ onCreated }: { onCreated: (business: Business) 
                     value={s.value}
                     checked={stage === s.value}
                     onChange={() => setStage(s.value)}
-                    className="h-4 w-4 text-primary-600 focus:ring-primary-500"
+                    className="h-4 w-4 text-primary focus:ring-primary"
                   />
-                  <span className="text-sm text-neutral-700">{s.label}</span>
+                  <span className="text-sm text-text">{s.label}</span>
                 </label>
               ))}
             </div>
@@ -155,9 +155,9 @@ export function CreateBusiness({ onCreated }: { onCreated: (business: Business) 
                 type="checkbox"
                 checked={cacRegistered}
                 onChange={(e) => setCacRegistered(e.target.checked)}
-                className="h-4 w-4 rounded border-neutral-300 text-primary-600 focus:ring-primary-500"
+                className="h-4 w-4 rounded border-border text-primary focus:ring-primary"
               />
-              <span className="text-sm text-neutral-700">My business is CAC-registered</span>
+              <span className="text-sm text-text">My business is CAC-registered</span>
             </label>
           </div>
 
@@ -176,7 +176,7 @@ export function CreateBusiness({ onCreated }: { onCreated: (business: Business) 
           )}
 
           {error && (
-            <div className="rounded-xl border border-error-200 bg-error-50 px-4 py-3 text-sm text-error-700">
+            <div className="rounded-xl border border-danger/30 bg-danger/10 px-4 py-3 text-sm text-danger">
               {error}
             </div>
           )}

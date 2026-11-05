@@ -123,8 +123,8 @@ export function DailyEntry({ businessId }: { businessId: string }) {
   return (
     <div className="space-y-5 animate-fade-in">
       <div>
-        <h1 className="text-xl font-bold text-neutral-900 sm:text-2xl">Daily Entry</h1>
-        <p className="mt-0.5 text-sm text-neutral-500">
+        <h1 className="text-xl font-bold text-text sm:text-2xl">Daily Entry</h1>
+        <p className="mt-0.5 text-sm text-muted">
           Log a WIN or LOSS with real numbers. Once submitted, an entry is locked forever.
         </p>
       </div>
@@ -132,8 +132,8 @@ export function DailyEntry({ businessId }: { businessId: string }) {
       {/* Calendar */}
       <div className="card">
         <div className="mb-3 flex items-center justify-between">
-          <h3 className="flex items-center gap-2 text-sm font-semibold text-neutral-700">
-            <Calendar className="h-4 w-4 text-primary-500" />
+          <h3 className="flex items-center gap-2 text-sm font-semibold text-text">
+            <Calendar className="h-4 w-4 text-primary" />
             Last 35 days
           </h3>
         </div>
@@ -143,26 +143,31 @@ export function DailyEntry({ businessId }: { businessId: string }) {
               key={i}
               className={`flex aspect-square items-center justify-center rounded-lg text-xs font-medium ${
                 day === null
-                  ? 'bg-neutral-50'
+                  ? 'bg-bg'
                   : day.result === 'WIN'
-                  ? 'bg-success-100 text-success-700'
-                  : 'bg-error-100 text-error-700'
+                  ? 'bg-growth/15 text-growth'
+                  : 'bg-danger/15 text-danger'
               }`}
               title={day ? `${day.date}: ${day.result}` : ''}
             >
-              {day ? day.dayNum : ''}
+              {day ? (
+                <span className="flex flex-col items-center leading-none">
+                  <span>{day.dayNum}</span>
+                  <span className="mt-0.5 text-[9px] font-bold">{day.result === 'WIN' ? 'W' : 'L'}</span>
+                </span>
+              ) : ''}
             </div>
           ))}
         </div>
-        <div className="mt-3 flex items-center gap-4 text-xs text-neutral-500">
+        <div className="mt-3 flex items-center gap-4 text-xs text-muted">
           <span className="flex items-center gap-1.5">
-            <span className="h-3 w-3 rounded bg-success-100" /> WIN
+            <span className="h-3 w-3 rounded bg-growth/15" /> WIN
           </span>
           <span className="flex items-center gap-1.5">
-            <span className="h-3 w-3 rounded bg-error-100" /> LOSS
+            <span className="h-3 w-3 rounded bg-danger/15" /> LOSS
           </span>
           <span className="flex items-center gap-1.5">
-            <span className="h-3 w-3 rounded bg-neutral-100" /> No entry
+            <span className="h-3 w-3 rounded bg-border" /> No entry
           </span>
         </div>
       </div>
@@ -170,34 +175,34 @@ export function DailyEntry({ businessId }: { businessId: string }) {
       {/* Conversation log */}
       <div className="card">
         <div className="mb-3 flex items-center justify-between">
-          <h3 className="flex items-center gap-2 text-sm font-semibold text-neutral-700">
-            <MessageCircle className="h-4 w-4 text-primary-500" />
+          <h3 className="flex items-center gap-2 text-sm font-semibold text-text">
+            <MessageCircle className="h-4 w-4 text-primary" />
             Customer Conversations
           </h3>
           <button
             onClick={() => setShowConvoModal(true)}
-            className="flex items-center gap-1 text-xs font-semibold text-primary-600 hover:text-primary-700"
+            className="flex items-center gap-1 text-xs font-semibold text-primary hover:text-primary/90"
           >
             <Plus className="h-3.5 w-3.5" /> Add
           </button>
         </div>
         {conversations.length === 0 ? (
-          <p className="text-sm text-neutral-400">
+          <p className="text-sm text-muted">
             No conversations logged yet. Gate 0 needs 10 real customer conversations.
           </p>
         ) : (
           <div className="space-y-2">
             {conversations.slice(0, 5).map((c) => (
-              <div key={c.id} className="rounded-xl border border-neutral-200 p-3">
+              <div key={c.id} className="rounded-xl border border-border p-3">
                 <div className="flex items-center justify-between">
-                  <p className="text-sm font-medium text-neutral-700">{c.person_name ?? 'Conversation'}</p>
-                  <p className="text-xs text-neutral-400">{formatDateShort(c.conversation_date)}</p>
+                  <p className="text-sm font-medium text-text">{c.person_name ?? 'Conversation'}</p>
+                  <p className="text-xs text-muted">{formatDateShort(c.conversation_date)}</p>
                 </div>
-                <p className="mt-1 text-xs text-neutral-500">{c.note}</p>
-                {c.outcome && <p className="mt-1 text-xs text-neutral-400">Outcome: {c.outcome}</p>}
+                <p className="mt-1 text-xs text-muted">{c.note}</p>
+                {c.outcome && <p className="mt-1 text-xs text-muted">Outcome: {c.outcome}</p>}
               </div>
             ))}
-            <p className="pt-1 text-xs text-neutral-400">
+            <p className="pt-1 text-xs text-muted">
               {conversations.length} conversation{conversations.length !== 1 ? 's' : ''} logged
             </p>
           </div>
@@ -208,16 +213,16 @@ export function DailyEntry({ businessId }: { businessId: string }) {
       {existingEntry ? (
         <div className="card">
           <div className="flex items-center gap-3">
-            <Lock className="h-5 w-5 text-neutral-400" />
+            <Lock className="h-5 w-5 text-muted" />
             <div>
-              <p className="text-sm font-semibold text-neutral-700">
+              <p className="text-sm font-semibold text-text">
                 Entry for {formatDateShort(existingEntry.entry_date)} is locked
               </p>
-              <p className="text-xs text-neutral-400">
+              <p className="text-xs text-muted">
                 Result: {existingEntry.result} · {existingEntry.new_customers} customers · ₦{Math.floor(existingEntry.revenue / 100).toLocaleString()} revenue
               </p>
-              {existingEntry.note && <p className="mt-1 text-xs text-neutral-500">"{existingEntry.note}"</p>}
-              <p className="mt-2 text-xs text-neutral-400">
+              {existingEntry.note && <p className="mt-1 text-xs text-muted">"{existingEntry.note}"</p>}
+              <p className="mt-2 text-xs text-muted">
                 Entries cannot be edited. To correct, submit a new entry referencing this one.
               </p>
             </div>
@@ -226,14 +231,14 @@ export function DailyEntry({ businessId }: { businessId: string }) {
       ) : (
         <div className="card">
           <div className="mb-4 flex items-center justify-between">
-            <h3 className="text-sm font-semibold text-neutral-700">
+            <h3 className="text-sm font-semibold text-text">
               {isToday ? "Today's Entry" : `Entry for ${formatDateShort(selectedDate)}`}
             </h3>
             <input
               type="date"
               value={selectedDate}
               onChange={(e) => setSelectedDate(e.target.value)}
-              className="rounded-lg border border-neutral-200 px-2 py-1 text-xs text-neutral-600 focus:border-primary-500 focus:outline-none"
+              className="rounded-lg border border-border px-2 py-1 text-xs text-muted focus:border-primary focus:outline-none"
               max={todayISO()}
             />
           </div>
@@ -248,8 +253,8 @@ export function DailyEntry({ businessId }: { businessId: string }) {
                   onClick={() => setResult('WIN')}
                   className={`flex items-center justify-center gap-2 rounded-xl border p-4 transition-all ${
                     result === 'WIN'
-                      ? 'border-success-500 bg-success-50 text-success-700'
-                      : 'border-neutral-200 text-neutral-500 hover:border-neutral-300'
+                      ? 'border-growth bg-growth/10 text-growth'
+                      : 'border-border text-muted hover:border-border/90'
                   }`}
                 >
                   <Trophy className="h-5 w-5" />
@@ -260,8 +265,8 @@ export function DailyEntry({ businessId }: { businessId: string }) {
                   onClick={() => setResult('LOSS')}
                   className={`flex items-center justify-center gap-2 rounded-xl border p-4 transition-all ${
                     result === 'LOSS'
-                      ? 'border-error-500 bg-error-50 text-error-700'
-                      : 'border-neutral-200 text-neutral-500 hover:border-neutral-300'
+                      ? 'border-danger bg-danger/10 text-danger'
+                      : 'border-border text-muted hover:border-border/90'
                   }`}
                 >
                   <XCircle className="h-5 w-5" />
@@ -323,21 +328,21 @@ export function DailyEntry({ businessId }: { businessId: string }) {
             </div>
 
             {/* Warning */}
-            <div className="rounded-xl border border-warning-200 bg-warning-50 p-3">
-              <p className="text-xs text-warning-700">
+            <div className="rounded-xl border border-attention/30 bg-attention/10 p-3">
+              <p className="text-xs text-attention">
                 Once you submit, this entry is locked. You cannot edit it. To correct a mistake,
                 submit a new entry that references this one.
               </p>
             </div>
 
             {submitResult && !submitResult.success && (
-              <div className="rounded-xl border border-error-200 bg-error-50 px-4 py-3 text-sm text-error-700">
+              <div className="rounded-xl border border-danger/30 bg-danger/10 px-4 py-3 text-sm text-danger">
                 {submitResult.error ?? 'Could not save entry. Try again.'}
               </div>
             )}
 
             {submitResult?.success && (
-              <div className="flex items-center gap-2 rounded-xl border border-success-200 bg-success-50 px-4 py-3 text-sm text-success-700">
+              <div className="flex items-center gap-2 rounded-xl border border-growth/30 bg-growth/10 px-4 py-3 text-sm text-growth">
                 <CheckCircle2 className="h-4 w-4" />
                 Entry locked and saved. Well done.
               </div>
@@ -352,11 +357,11 @@ export function DailyEntry({ businessId }: { businessId: string }) {
 
       {/* Conversation modal */}
       {showConvoModal && (
-        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-neutral-900/40 p-0 sm:p-4" onClick={() => setShowConvoModal(false)}>
-          <div className="w-full max-w-md rounded-t-2xl sm:rounded-2xl bg-white p-5 animate-slide-up" onClick={(e) => e.stopPropagation()}>
+        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-text/40 p-0 sm:p-4" onClick={() => setShowConvoModal(false)}>
+          <div className="w-full max-w-md rounded-t-2xl sm:rounded-2xl bg-surface p-5 animate-slide-up" onClick={(e) => e.stopPropagation()}>
             <div className="mb-4 flex items-center justify-between">
-              <h3 className="text-sm font-semibold text-neutral-700">Log a customer conversation</h3>
-              <button onClick={() => setShowConvoModal(false)} className="text-neutral-400 hover:text-neutral-600">
+              <h3 className="text-sm font-semibold text-text">Log a customer conversation</h3>
+              <button onClick={() => setShowConvoModal(false)} className="text-muted hover:text-muted/90">
                 <X className="h-5 w-5" />
               </button>
             </div>

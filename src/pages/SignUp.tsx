@@ -82,7 +82,7 @@ export function SignUp({
 
   if (step === 'agreement') {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-primary-50 to-neutral-50">
+      <div className="min-h-screen bg-gradient-to-b from-primary/10 to-bg">
         <div className="mx-auto flex min-h-screen max-w-md flex-col px-5 py-8">
           <div className="mb-8 flex justify-center">
             <Logo size="lg" />
@@ -101,15 +101,15 @@ export function SignUp({
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-primary-50 to-neutral-50">
+    <div className="min-h-screen bg-gradient-to-b from-primary/10 to-bg">
       <div className="mx-auto flex min-h-screen max-w-md flex-col px-5 py-8">
         <div className="mb-8 flex justify-center">
           <Logo size="lg" />
         </div>
 
         <div className="mb-6 text-center">
-          <h1 className="text-2xl font-bold text-neutral-900">Create your account</h1>
-          <p className="mt-1.5 text-sm text-neutral-500">
+          <h1 className="text-2xl font-bold text-text">Create your account</h1>
+          <p className="mt-1.5 text-sm text-muted">
             Join {APP_NAME} and start building your business step by step.
           </p>
         </div>
@@ -152,7 +152,7 @@ export function SignUp({
               placeholder="+234 801 234 5678"
               autoComplete="tel"
             />
-            <p className="mt-1 text-xs text-neutral-400">
+            <p className="mt-1 text-xs text-muted">
               Phone OTP verification: Coming soon. For now, use email login.
             </p>
           </div>
@@ -190,7 +190,7 @@ export function SignUp({
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-600"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-muted/90"
               >
                 {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
               </button>
@@ -198,7 +198,7 @@ export function SignUp({
           </div>
 
           {error && (
-            <div className="rounded-xl border border-error-200 bg-error-50 px-4 py-3 text-sm text-error-700">
+            <div className="rounded-xl border border-danger/30 bg-danger/10 px-4 py-3 text-sm text-danger">
               {error}
             </div>
           )}
@@ -209,9 +209,9 @@ export function SignUp({
           </button>
         </form>
 
-        <p className="mt-6 text-center text-sm text-neutral-500">
+        <p className="mt-6 text-center text-sm text-muted">
           Already have an account?{' '}
-          <button onClick={onSignIn} className="font-semibold text-primary-600 hover:text-primary-700">
+          <button onClick={onSignIn} className="font-semibold text-primary hover:text-primary/90">
             Sign in
           </button>
         </p>

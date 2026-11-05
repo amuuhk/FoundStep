@@ -66,7 +66,7 @@ function AgreementGate({ onAccepted }: { onAccepted: () => Promise<void> }) {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-primary-50 to-neutral-50">
+    <div className="min-h-screen bg-gradient-to-b from-primary/10 to-bg">
       <div className="mx-auto flex min-h-screen max-w-md flex-col px-5 py-8">
         <div className="mb-8 flex justify-center">
           <Logo size="lg" />
@@ -74,7 +74,7 @@ function AgreementGate({ onAccepted }: { onAccepted: () => Promise<void> }) {
         <EquityAgreementStep onAccept={handleAccept} loading={loading} error={error} submitLabel="Accept and continue" />
         <button
           onClick={() => signOut()}
-          className="mt-6 text-center text-sm font-semibold text-neutral-500 hover:text-neutral-700"
+          className="mt-6 text-center text-sm font-semibold text-muted hover:text-text/90"
         >
           Sign out instead
         </button>
@@ -124,24 +124,24 @@ function SettingsView() {
   return (
     <div className="space-y-5 animate-fade-in">
       <div>
-        <h1 className="text-xl font-bold text-neutral-900 sm:text-2xl">Settings</h1>
-        <p className="mt-0.5 text-sm text-neutral-500">Your account details.</p>
+        <h1 className="text-xl font-bold text-text sm:text-2xl">Settings</h1>
+        <p className="mt-0.5 text-sm text-muted">Your account details.</p>
       </div>
       <div className="card space-y-3">
         <div className="flex items-center gap-3">
-          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary-100">
+          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/15">
             <Logo size="sm" markOnly />
           </div>
           <div>
-            <p className="text-sm font-semibold text-neutral-900">{profile?.full_name ?? 'Founder'}</p>
-            <p className="text-xs text-neutral-500">{profile?.email ?? '—'}</p>
+            <p className="text-sm font-semibold text-text">{profile?.full_name ?? 'Founder'}</p>
+            <p className="text-xs text-muted">{profile?.email ?? '—'}</p>
           </div>
         </div>
-        <div className="border-t border-neutral-100 pt-3 text-sm text-neutral-600">
-          <p>Role: <span className="font-medium text-neutral-900">{profile?.role ?? 'founder'}</span></p>
-          <p>Country: <span className="font-medium text-neutral-900">{profile?.country ?? 'Nigeria'}</span></p>
-          {profile?.state && <p>State: <span className="font-medium text-neutral-900">{profile.state}</span></p>}
-          {profile?.phone && <p>Phone: <span className="font-medium text-neutral-900">{profile.phone}</span></p>}
+        <div className="border-t border-border pt-3 text-sm text-muted">
+          <p>Role: <span className="font-medium text-text">{profile?.role ?? 'founder'}</span></p>
+          <p>Country: <span className="font-medium text-text">{profile?.country ?? 'Nigeria'}</span></p>
+          {profile?.state && <p>State: <span className="font-medium text-text">{profile.state}</span></p>}
+          {profile?.phone && <p>Phone: <span className="font-medium text-text">{profile.phone}</span></p>}
         </div>
       </div>
       <PricingCard />

@@ -30,13 +30,13 @@ export function DisciplineMode({ skippedCount, onExit }: DisciplineModeProps) {
   const seconds = secondsLeft % 60;
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-neutral-900 px-6 text-center text-white">
-      <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-warning-500 animate-pulse-soft">
-        <Zap className="h-8 w-8 text-white" />
+    <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-text px-6 text-center text-on-solid">
+      <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-attention animate-pulse-soft">
+        <Zap className="h-8 w-8 text-on-solid" />
       </div>
 
       <h1 className="text-2xl font-bold">Discipline Mode</h1>
-      <p className="mt-2 max-w-sm text-sm text-neutral-300">
+      <p className="mt-2 max-w-sm text-sm text-border">
         You skipped {skippedCount} daily tasks in a row. This focus screen stays for {DISCIPLINE_FOCUS_DURATION_HOURS} hours.
         Use this time to get back on track.
       </p>
@@ -45,23 +45,23 @@ export function DisciplineMode({ skippedCount, onExit }: DisciplineModeProps) {
         {String(hours).padStart(2, '0')}:{String(minutes).padStart(2, '0')}:{String(seconds).padStart(2, '0')}
       </div>
 
-      <div className="max-w-sm space-y-3 rounded-2xl border border-neutral-700 bg-neutral-800 p-5 text-left">
-        <p className="text-sm font-semibold text-white">What to do now:</p>
-        <ul className="space-y-2 text-sm text-neutral-300">
+      <div className="max-w-sm space-y-3 rounded-2xl border border-text bg-text p-5 text-left">
+        <p className="text-sm font-semibold text-on-solid">What to do now:</p>
+        <ul className="space-y-2 text-sm text-border">
           <li>1. Log today's entry — WIN or LOSS, with real numbers.</li>
           <li>2. Reach out to one customer or potential customer.</li>
           <li>3. Complete one task you skipped.</li>
         </ul>
       </div>
 
-      <p className="mt-6 text-xs text-neutral-500">
+      <p className="mt-6 text-xs text-muted">
         This is not a punishment. It is a reminder that consistency builds businesses.
       </p>
 
       {canExit && (
         <button
           onClick={onExit}
-          className="mt-6 flex items-center gap-2 rounded-xl bg-white px-6 py-3 text-sm font-semibold text-neutral-900 transition-colors hover:bg-neutral-100"
+          className="mt-6 flex items-center gap-2 rounded-xl bg-surface px-6 py-3 text-sm font-semibold text-text transition-colors hover:bg-border/90"
         >
           <X className="h-4 w-4" />
           Exit focus mode
@@ -69,12 +69,12 @@ export function DisciplineMode({ skippedCount, onExit }: DisciplineModeProps) {
       )}
 
       {!canExit && (
-        <p className="mt-6 text-xs text-neutral-500">
+        <p className="mt-6 text-xs text-muted">
           You can exit when the timer finishes. Stay strong.
         </p>
       )}
 
-      <p className="mt-8 text-xs text-neutral-600">{APP_NAME}</p>
+      <p className="mt-8 text-xs text-muted">{APP_NAME}</p>
     </div>
   );
 }

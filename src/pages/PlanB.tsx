@@ -20,16 +20,16 @@ export function PlanB({ daysSinceProgress, onLogEntry }: PlanBProps) {
 
   return (
     <div className="space-y-5 animate-fade-in">
-      <div className="card border-error-200 bg-error-50">
+      <div className="card border-danger/30 bg-danger/10">
         <div className="flex items-start gap-3">
-          <AlertTriangle className="h-6 w-6 shrink-0 text-error-600" />
+          <AlertTriangle className="h-6 w-6 shrink-0 text-danger" />
           <div>
-            <h1 className="text-lg font-bold text-error-800">Plan B is active</h1>
-            <p className="mt-1 text-sm text-error-700">
+            <h1 className="text-lg font-bold text-danger">Plan B is active</h1>
+            <p className="mt-1 text-sm text-danger">
               You have not logged progress for {daysSinceProgress} days.
               This is an emergency action list to help you get moving again.
             </p>
-            <p className="mt-2 text-xs text-error-600">
+            <p className="mt-2 text-xs text-danger">
               No automatic demotion happens. You are still at your current gate.
               But the longer you wait, the harder it gets.
             </p>
@@ -38,28 +38,28 @@ export function PlanB({ daysSinceProgress, onLogEntry }: PlanBProps) {
       </div>
 
       <div className="card">
-        <h3 className="mb-3 text-sm font-semibold text-neutral-700">Do these this week</h3>
+        <h3 className="mb-3 text-sm font-semibold text-text">Do these this week</h3>
         <div className="space-y-2">
           {actions.map((action, i) => (
             <label
               key={i}
-              className="flex items-start gap-3 rounded-xl border border-neutral-200 p-3 transition-colors hover:bg-neutral-50"
+              className="flex items-start gap-3 rounded-xl border border-border p-3 transition-colors hover:bg-bg/90"
             >
               <input
                 type="checkbox"
-                className="mt-0.5 h-4 w-4 rounded border-neutral-300 text-primary-600 focus:ring-primary-500"
+                className="mt-0.5 h-4 w-4 rounded border-border text-primary focus:ring-primary"
               />
-              <span className="text-sm text-neutral-700">{action}</span>
+              <span className="text-sm text-text">{action}</span>
             </label>
           ))}
         </div>
       </div>
 
       <div className="card flex flex-col items-center gap-3 text-center">
-        <RefreshCw className="h-8 w-8 text-primary-500" />
+        <RefreshCw className="h-8 w-8 text-primary" />
         <div>
-          <p className="text-sm font-semibold text-neutral-700">Log today's entry to exit Plan B</p>
-          <p className="mt-1 text-xs text-neutral-400">
+          <p className="text-sm font-semibold text-text">Log today's entry to exit Plan B</p>
+          <p className="mt-1 text-xs text-muted">
             Even a LOSS counts. The point is to start moving again.
           </p>
         </div>
@@ -68,7 +68,7 @@ export function PlanB({ daysSinceProgress, onLogEntry }: PlanBProps) {
         </button>
       </div>
 
-      <p className="text-center text-xs text-neutral-400">
+      <p className="text-center text-xs text-muted">
         Plan B activates after {PLAN_B_NO_PROGRESS_DAYS} days of no logged entries.
       </p>
     </div>

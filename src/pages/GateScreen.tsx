@@ -70,8 +70,8 @@ export function GateScreen({ businessId }: { businessId: string }) {
   return (
     <div className="space-y-5 animate-fade-in">
       <div>
-        <h1 className="text-xl font-bold text-neutral-900 sm:text-2xl">Your Gates</h1>
-        <p className="mt-0.5 text-sm text-neutral-500">
+        <h1 className="text-xl font-bold text-text sm:text-2xl">Your Gates</h1>
+        <p className="mt-0.5 text-sm text-muted">
           Move through six gates by proving real numbers. Each gate unlocks when you meet the targets.
         </p>
       </div>
@@ -89,9 +89,9 @@ export function GateScreen({ businessId }: { businessId: string }) {
               key={gate}
               className={`card transition-all ${
                 isUnlocked
-                  ? 'border-success-200 bg-success-50'
+                  ? 'border-growth/30 bg-growth/10'
                   : isNext
-                  ? 'border-primary-300 bg-white ring-2 ring-primary-100'
+                  ? 'border-primary/50 bg-surface ring-2 ring-primary/15'
                   : 'opacity-70'
               }`}
             >
@@ -100,39 +100,39 @@ export function GateScreen({ businessId }: { businessId: string }) {
                   <div
                     className={`flex h-10 w-10 items-center justify-center rounded-xl ${
                       isUnlocked
-                        ? 'bg-success-100 text-success-600'
+                        ? 'bg-growth/15 text-growth'
                         : isNext
-                        ? 'bg-primary-100 text-primary-600'
-                        : 'bg-neutral-100 text-neutral-400'
+                        ? 'bg-primary/15 text-primary'
+                        : 'bg-border text-muted'
                     }`}
                   >
                     {isUnlocked ? <Unlock className="h-5 w-5" /> : <Lock className="h-5 w-5" />}
                   </div>
                   <div>
-                    <p className="text-sm font-semibold text-neutral-900">
+                    <p className="text-sm font-semibold text-text">
                       Gate {gate}: {getGateName(gate)}
                     </p>
                     {isUnlocked && (
-                      <p className="text-xs text-success-600">
+                      <p className="text-xs text-growth">
                         Unlocked{unlocks.find((u) => u.gate === gate) ? ` · ${new Date(unlocks.find((u) => u.gate === gate)!.unlocked_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}` : ''}
                       </p>
                     )}
-                    {isNext && <p className="text-xs text-primary-600">Your next gate</p>}
-                    {isLocked && <p className="text-xs text-neutral-400">Locked</p>}
+                    {isNext && <p className="text-xs text-primary">Your next gate</p>}
+                    {isLocked && <p className="text-xs text-muted">Locked</p>}
                   </div>
                 </div>
 
-                {isUnlocked && <CheckCircle2 className="h-5 w-5 text-success-500" />}
+                {isUnlocked && <CheckCircle2 className="h-5 w-5 text-growth" />}
               </div>
 
               {/* Progress for next gate */}
               {isNext && gateProgress.length > 0 && (
-                <div className="mt-4 space-y-3 border-t border-neutral-100 pt-4">
+                <div className="mt-4 space-y-3 border-t border-border pt-4">
                   {gateProgress.map((item, i) => (
                     <div key={i}>
                       <div className="mb-1 flex items-center justify-between text-xs">
-                        <span className="text-neutral-600">{item.label}</span>
-                        <span className="font-semibold text-neutral-900">
+                        <span className="text-muted">{item.label}</span>
+                        <span className="font-semibold text-text">
                           {item.label.includes('Revenue') && settings
                             ? `${formatCurrency(item.current, settings)} / ${formatCurrency(item.required, settings)}`
                             : `${formatNumber(item.current)} / ${formatNumber(item.required)}`}
@@ -153,18 +153,18 @@ export function GateScreen({ businessId }: { businessId: string }) {
                   </button>
 
                   {result && !result.unlocked && result.missing && (
-                    <div className="space-y-1.5 rounded-xl border border-warning-200 bg-warning-50 p-3">
-                      <p className="text-xs font-semibold text-warning-800">Not yet. Here is what is missing:</p>
+                    <div className="space-y-1.5 rounded-xl border border-attention/30 bg-attention/10 p-3">
+                      <p className="text-xs font-semibold text-attention">Not yet. Here is what is missing:</p>
                       {formatMissingMessage(result.missing, settings).map((msg, i) => (
-                        <p key={i} className="text-xs text-warning-700">{msg}</p>
+                        <p key={i} className="text-xs text-attention">{msg}</p>
                       ))}
                     </div>
                   )}
 
                   {result?.unlocked && (
-                    <div className="flex items-center gap-2 rounded-xl border border-success-200 bg-success-50 p-3">
-                      <CheckCircle2 className="h-4 w-4 text-success-600" />
-                      <p className="text-sm font-semibold text-success-700">
+                    <div className="flex items-center gap-2 rounded-xl border border-growth/30 bg-growth/10 p-3">
+                      <CheckCircle2 className="h-4 w-4 text-growth" />
+                      <p className="text-sm font-semibold text-growth">
                         Gate {gate} unlocked! Well done.
                       </p>
                     </div>
@@ -174,10 +174,10 @@ export function GateScreen({ businessId }: { businessId: string }) {
 
               {/* Locked gates show requirements without interaction */}
               {isLocked && progress && settings && getProgressForGate(progress, settings, gate).length > 0 && (
-                <div className="mt-3 space-y-1 border-t border-neutral-100 pt-3">
-                  <p className="text-xs font-medium text-neutral-400">Requirements:</p>
+                <div className="mt-3 space-y-1 border-t border-border pt-3">
+                  <p className="text-xs font-medium text-muted">Requirements:</p>
                   {getProgressForGate(progress, settings, gate).map((item, i) => (
-                    <p key={i} className="text-xs text-neutral-400">
+                    <p key={i} className="text-xs text-muted">
                       {item.label.includes('Revenue') && settings
                         ? `${formatCurrency(item.required, settings)} ${item.label.toLowerCase()}`
                         : `${formatNumber(item.required)} ${item.label.toLowerCase()}`}
@@ -187,7 +187,7 @@ export function GateScreen({ businessId }: { businessId: string }) {
               )}
 
               {gate === 5 && isLocked && (
-                <p className="mt-3 text-xs text-neutral-400">
+                <p className="mt-3 text-xs text-muted">
                   Reached after Gate 4 proof is reviewed by a mentor.
                 </p>
               )}

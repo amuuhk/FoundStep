@@ -31,31 +31,31 @@ export function EquityAgreementStep({
   return (
     <div className="space-y-5">
       <div className="flex items-center gap-3">
-        <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-secondary-50">
-          <Percent className="h-5 w-5 text-secondary-700" />
+        <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-growth/10">
+          <Percent className="h-5 w-5 text-growth" />
         </div>
         <div>
-          <h2 className="text-xl font-bold text-primary-900">Equity agreement</h2>
-          <p className="text-sm text-neutral-500">Please read the terms before you continue.</p>
+          <h2 className="text-xl font-bold text-primary">Equity agreement</h2>
+          <p className="text-sm text-muted">Please read the terms before you continue.</p>
         </div>
       </div>
 
       <div className="card space-y-4">
-        <p className="rounded-xl bg-primary-900 px-4 py-3 text-sm font-semibold text-white">
+        <p className="rounded-xl bg-primary px-4 py-3 text-sm font-semibold text-on-solid">
           No Premium. No Upgrade Fees. We grow when you grow — 5% Equity.
         </p>
-        <ul className="space-y-2.5 text-sm leading-relaxed text-neutral-700">
+        <ul className="space-y-2.5 text-sm leading-relaxed text-text">
           {TERMS.map((term) => (
             <li key={term} className="flex gap-2.5">
-              <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-secondary-600" />
+              <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-growth" />
               <span>{term}</span>
             </li>
           ))}
         </ul>
         {onViewPrivacy && (
-          <p className="text-xs text-neutral-500">
+          <p className="text-xs text-muted">
             Read how we handle your information in the{' '}
-            <button type="button" onClick={onViewPrivacy} className="font-semibold text-primary-600 hover:text-primary-700">
+            <button type="button" onClick={onViewPrivacy} className="font-semibold text-primary hover:text-primary/90">
               privacy notice
             </button>
             .
@@ -63,20 +63,20 @@ export function EquityAgreementStep({
         )}
       </div>
 
-      <label className="flex items-start gap-3 rounded-xl border border-neutral-200 bg-white p-4">
+      <label className="flex items-start gap-3 rounded-xl border border-border bg-surface p-4">
         <input
           type="checkbox"
           checked={agreed}
           onChange={(e) => setAgreed(e.target.checked)}
-          className="mt-0.5 h-4 w-4 rounded border-neutral-300 text-primary-600 focus:ring-primary-500"
+          className="mt-0.5 h-4 w-4 rounded border-border text-primary focus:ring-primary"
         />
-        <span className="text-sm leading-relaxed text-neutral-700">
+        <span className="text-sm leading-relaxed text-text">
           I accept the 5% equity agreement for {APP_NAME} and understand the terms above.
         </span>
       </label>
 
       {error && (
-        <div className="rounded-xl border border-error-200 bg-error-50 px-4 py-3 text-sm text-error-700">
+        <div className="rounded-xl border border-danger/30 bg-danger/10 px-4 py-3 text-sm text-danger">
           {error}
         </div>
       )}
